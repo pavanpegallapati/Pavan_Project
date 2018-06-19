@@ -8,17 +8,17 @@ import org.openqa.selenium.support.How;
 import com.GenericFunctions.GenericFunctions;
 
 public class Authentication_Page extends GenericFunctions {
-
+	
+	//store Header1 value//
+	
 	// **Sign in object identification***//
-
-		@FindBy(how = How.XPATH, using = "//div[@id='page']//a[normalize-space(text())='Sign in']")
+	@FindBy(how = How.XPATH, using = "//div[@id='page']//a[normalize-space(text())='Sign in']")
 		public static WebElement lnk_Sign_in;
 	
 	//**Authentication page header***//
 
 	@FindBy(how = How.XPATH, using = "//h1[text()='Authentication']")
-
-	public static WebElement Authentication_page_Header;
+		public static WebElement Authentication_page_Header;
 
 	// **Forgot your Password link***//
 
@@ -47,6 +47,7 @@ public class Authentication_Page extends GenericFunctions {
 	
 	public boolean auth_page_forgotpwd_lnk() {
 		Boolean status;
+		
 
 		try {
 			
@@ -56,15 +57,20 @@ public class Authentication_Page extends GenericFunctions {
 
 			if (status) 
 			{
-				logEvent("Pass", "Sign in Link is clicked");				
-				status = page_navigation_is_successful(Authentication_page_Header, "Authentication");
+				
+				logEvent("Pass", "Sign in Link is clicked");
+				//get the Header text from test data sheet to compare with actual value//
+				String str_Header1=getdata("Fieldinfo", "Header1", 1);
+				//compare actual Header with expected Header text//
+				status = page_navigation_is_successful(Authentication_page_Header, str_Header1);
 				
 				if(status)
 				{
 									
 				logEvent("Pass", "Auth Header is available");
-				
-				status = page_navigation_is_successful(Forgotpwd_Link, "Forgot your password?");
+								
+				str_Header1=getdata("Fieldinfo", "Header2", 1);
+				status = page_navigation_is_successful(Forgotpwd_Link, str_Header1);
 					if(status)
 					{
 						logEvent("Pass", "Forogt your password link is available");

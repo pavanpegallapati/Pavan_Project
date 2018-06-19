@@ -262,6 +262,24 @@ public class GenericFunctions extends TestNGListeners {
 
 		return status;
 	}
+	
+	public static boolean setData(WebElement Ele,String input)
+	{
+		boolean status=true;
+		try{
+			
+			Ele.sendKeys(input);
+			System.out.println(input);
+			status = true;
+			
+		}
+		catch(Exception e)
+		{
+			status = false;
+		}
+		
+		return status;
+	}
 
 	public static void forceClick(WebElement element) {
 		JavascriptExecutor js = (JavascriptExecutor) driver;

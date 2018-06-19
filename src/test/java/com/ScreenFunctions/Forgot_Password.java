@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 import com.GenericFunctions.GenericFunctions;
+import com.thoughtworks.selenium.webdriven.commands.GetText;
 
 public class Forgot_Password extends GenericFunctions {
 
@@ -53,7 +54,7 @@ public class Forgot_Password extends GenericFunctions {
 
 	@FindBy(how = How.XPATH, using = "//span[text()='Retrieve Password']//parent::button")
 	public static WebElement Forgotpwd_Button;
-	//String str_button_name = "Retrieve Password";
+	// String str_button_name = "Retrieve Password";
 
 	// **BackTo button text in Forgot your password section**//
 
@@ -64,14 +65,22 @@ public class Forgot_Password extends GenericFunctions {
 
 	@FindBy(how = How.XPATH, using = "//div[@id='center_column']//ul//li//a[@title='Back to Login']//span")
 	public static WebElement forgotpws_backto_button_text;
-	//String str_BackButton = "Back to Login";
+	// String str_BackButton = "Back to Login";
 
 	// **bread crumb in Forgot your password section**//
 
 	@FindBy(how = How.XPATH, using = "//div[@class='breadcrumb clearfix']//a[@title='Authentication']/following-sibling::span")
 	public static WebElement Forgotpwd_breadcrumb;
-	//String str_breadcrumb = "Forgot your password";
-
+	// String str_breadcrumb = "Forgot your password";
+	
+	@FindBy(how = How.XPATH, using ="//div[@id='center_column']//div[@class='alert alert-danger']/p[1]")
+	public static WebElement Error1;
+	//Error Text1
+	
+	@FindBy(how = How.XPATH, using ="//div[@id='center_column']//div[@class='alert alert-danger']/ol[1]/li")
+	public static WebElement Error2;
+	//Error Text1
+	
 	/*************************************************
 	 * 
 	 * 
@@ -83,11 +92,11 @@ public class Forgot_Password extends GenericFunctions {
 	 * Input Parameters:-NA
 	 * 
 	 * Output Parameters:-This method will return a boolean value stating
-	 * whether the fields area vauilable or not
+	 * whether the fields are available or not
 	 * 
 	 * Author:-Pavan Pegallapati
 	 * 
-	 * Creationn date:-06/11/2018
+	 * Creation date:-06/11/2018
 	 * 
 	 * 
 	 **************************************************/
@@ -101,58 +110,65 @@ public class Forgot_Password extends GenericFunctions {
 
 			Forgotpwd_Link.click();
 
-			status = page_navigation_is_successful(Forgotpwd_Page_Header, "Forgot your password? Header");
+			String str_Header = getdata("Fieldinfo", "Header2", 1);
+			status = page_navigation_is_successful(Forgotpwd_Page_Header, str_Header);
 
-			// If Forgot Your Password Page is opened We can proceed
+			// If Forgot Your Password Page is opened We can proceed//
 
-			if (status) {
-				logEvent("Pass", "Forgot your password? section is available");
-			} else {
-				logEvent("Fail", "Forgot your password? section is not available");
-			}
-
-//			status = page_navigation_is_successful(Text_in_Forgotpwd_section, str_Text);
-//
-//			if (status) {
-//				logEvent("Pass", str_Text + "  Text is available in Forgot Your password page");
-//			} else {
-//				logEvent("Fail", str_Text + "  Text is not available in Forgot Your password page");
-//			}
-//
-//			status = page_navigation_is_successful(Forgotpwd_section_EmailID_Label, str_label);
-//
-//			if (status) {
-//				logEvent("Pass", str_label + "  label is available in Forgot Your password page");
-//			} else {
-//				logEvent("Fail", str_label + "  label is not available in Forgot Your password page");
-//			}
-//
-//			status = page_navigation_is_successful(Forgotpwd_Button_text, str_button_name);
-//
-//			if (status) {
-//				logEvent("Pass", str_button_name + "  is available in Forgot Your password page");
-//			} else {
-//				logEvent("Fail", str_button_name + "  is not available in Forgot Your password page");
-//			}
-//			status = page_navigation_is_successful(forgotpws_backto_button_text, str_BackButton);
-//
-//			if (status) {
-//				logEvent("Pass", str_BackButton + "  is available in Forgot Your password page");
-//			} else {
-//				logEvent("Fail", str_BackButton + "  is not available in Forgot Your password page");
-//			}
-//			status = page_navigation_is_successful(Forgotpwd_breadcrumb, str_breadcrumb);
-//
-//			if (status) {
-//				logEvent("Pass", str_breadcrumb + "  is available in Forgot Your password Breadcrumb ");
-//			} else {
-//				logEvent("Fail", str_breadcrumb + "  is not available in Forgot Your password Breadcrumb");
-//			}
-
-		} catch (Exception e) {
-			status = false;
-		}
-		return status;
+				if (status) 
+				{
+					logEvent("Pass", "Forgot your password? section is available");
+					
+					String str_text = getdata("Fieldinfo", "Text1", 1);
+					status = page_navigation_is_successful(Forgotpwd_Page_Header, str_text);
+		
+					if (status) {
+						logEvent("Pass", str_text + "  is available in Forgot Your password page");
+					} else {
+						logEvent("Fail", str_text + "  is not available in Forgot Your password page");
+					}
+					
+					str_text = getdata("Fieldinfo", "Text2", 1);	
+					status = page_navigation_is_successful(forgotpws_backto_button_text, str_text);
+		
+					if (status) {
+						logEvent("Pass", str_text + "  is available in Forgot Your password page");
+					} else {
+						logEvent("Fail", str_text + "  is not available in Forgot Your password page");
+					}
+										
+					String str_email_data=getdata("Fieldinfo", "Email", 1);
+					setData(Forgotpwd_emalId_Textbox, str_email_data);
+					hoverAndClick(Forgotpwd_Button);
+					
+					String str_Error1 = getdata("Fieldinfo", "Error1", 1);
+					String str_Error2 = getdata("Fieldinfo", "Error2", 1);
+					
+					status = page_navigation_is_successful(Error1, str_Error1);
+					if (status) {
+						logEvent("Pass", status + "  Error is displayed in Forgot Your password Page ");
+						
+					status = page_navigation_is_successful(Error2, str_Error2);
+					if (status) {
+						logEvent("Pass", status + "  Error is displayed in Forgot Your password Page ");
+					}
+					} else {
+						logEvent("Fail", status + "   Error is not displayed in Forgot Your password Page");
+					}
+						
+					} 
+				else 
+				{
+					logEvent("Fail", "Forgot your password? section is not available");
+				}
+				 
+				
+					
+			
+					} catch (Exception e) {
+						status = false;
+					}
+					return status;
 
 	}
 
