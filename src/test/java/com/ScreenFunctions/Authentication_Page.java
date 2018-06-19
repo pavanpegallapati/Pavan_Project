@@ -64,28 +64,28 @@ public class Authentication_Page extends GenericFunctions {
 				//compare actual Header with expected Header text//
 				status = page_navigation_is_successful(Authentication_page_Header, str_Header1);
 				
-				if(status)
-				{
-									
-				logEvent("Pass", "Auth Header is available");
-								
-				str_Header1=getdata("Fieldinfo", "Header2", 1);
-				status = page_navigation_is_successful(Forgotpwd_Link, str_Header1);
 					if(status)
 					{
-						logEvent("Pass", "Forogt your password link is available");
-					
-					}				
-					 else 
-					{
-						logEvent("Fail", "Forgot password link is not available");
+										
+					logEvent("Pass", "Auth Header is available");
+									
+					str_Header1=getdata("Fieldinfo", "Header2", 1);
+					status = page_navigation_is_successful(Forgotpwd_Link, str_Header1);
+						if(status)
+						{
+							logEvent("Pass", "Forogt your password link is available");
+						
+						}				
+						 else 
+						{
+							logEvent("Fail", "Forgot password link is not available");
+						}
+												
 					}
-											
-				}
-				else
-				{
-					logEvent("Fail", "Auth Header is not available");
-				}
+						else
+						{
+							logEvent("Fail", "Auth Header is not available");
+						}
 			}
 				else
 				{
